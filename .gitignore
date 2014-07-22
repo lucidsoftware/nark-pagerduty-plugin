@@ -1,0 +1,7 @@
+.ensime
+*.sublime-workspace
+*.sublime-project
+project/target/*
+project/project/*
+target/
+conf/
