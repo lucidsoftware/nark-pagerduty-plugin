@@ -18,7 +18,7 @@ retrieveManaged := true
 
 libraryDependencies ++= Seq(
   "net.databinder.dispatch" %% "dispatch-core" % "0.11.1",
-  "com.lucidchart" %% "nark-plugin" % "1.0-SNAPSHOT"
+  "com.lucidchart" %% "nark-plugin" % "1.0"
 )
 
 resolvers ++= List(
