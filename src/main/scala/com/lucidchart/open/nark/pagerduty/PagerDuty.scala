@@ -6,9 +6,9 @@ import dispatch._, Defaults._
 class PagerDuty extends AlertPlugin {
 	val name = "PagerDuty"
 
-	def tags = Configuration.get("pagerduty.tags").map(_.split(",").map(_.trim).toSet).getOrElse(Set.empty)
+	val tags = Configuration.getList("pagerduty.tags").toSet
 
-	def fallbackEmails: List[String] = Configuration.get("pagerduty.fallbackEmail").map(_.split(",").map(_.trim).toList).getOrElse(Nil)
+	val fallbackEmails: List[String] = Configuration.getList("pagerduty.fallbackEmail")
 
 	def init() = {
 
@@ -65,7 +65,7 @@ class PagerDuty extends AlertPlugin {
 		val response = Http(
 			url("https://events.pagerduty.com/generic/2010-04-15/create_event.json").POST
 				.setBody("{" +
-					"\"service_key\": \"" + Configuration.get("pagerduty.api.key").get + "\"," +
+					"\"service_key\": \"" + Configuration.get("pagerduty.api.key") + "\"," +
 					"\"event_type\": " + action +
 					"\"description\": \"" + alert.name + ": " + alert.server + "\"," +
 					"\"incident_key\": \"" + alert.id.toString + "\"," +

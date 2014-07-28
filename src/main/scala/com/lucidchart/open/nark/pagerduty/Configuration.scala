@@ -1,32 +1,34 @@
 package com.lucidchart.open.nark.pagerduty
 
-import scala.io.Source
+import com.typesafe.config.{Config, ConfigFactory}
+import java.io.File
+import scala.collection.JavaConversions._
 
 object Configuration {
 
 	private val conf = readConf()
 
 	/**
-	 * Get a value from the db configuration by its key
+	 * Get a value from the configuration by its key
 	 * @param key the key to look for
 	 * @return the value associated with the key
 	 */
-	def get(key: String): Option[String] = conf.get(key)
+	def get(key: String): String = conf.getString(key)
 
 	/**
-	 * Read in the db configuration file as a Map of key value pairs
+	 * Get a list of strings from the configuration by its key
+	 * @param key the key to look for
+	 * @return the value associated with the key
+	 */
+	def getList(key: String): List[String] = conf.getStringList(key).toList
+
+	/**
+	 * Read in the configuration file as a Map of key value pairs
 	 * @return the key value pairs
 	 */
-	private def readConf(): Map[String, String] = {
+	private def readConf(): Config = {
 		val file = sys.env.get("NARK_PAGERDUTY_CONF").getOrElse("conf/nark_pagerduty.conf")
-		val source = Source.fromFile(file)
-		val lines = source.getLines.toList
-		source.close()
-
-		lines.foldLeft(Map[String, String]()) { (result, line) =>
-			val pairs = line.split("=")
-			result + (pairs(0).trim -> pairs(1).trim)
-		}
+		ConfigFactory.parseFile(new File(file))
 	}
 
 }
