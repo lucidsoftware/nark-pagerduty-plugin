@@ -17,9 +17,9 @@ autoScalaLibrary := true
 retrieveManaged := true
 
 libraryDependencies ++= Seq(
-  "com.lucidchart" %% "nark-plugin" % "1.0",
-  "com.typesafe" % "config" % "1.0.2"
-  "net.databinder.dispatch" %% "dispatch-core" % "0.11.1",
+  "com.lucidchart" %% "nark-plugin" % "1.1",
+  "com.typesafe" % "config" % "1.0.2",
+  "net.databinder.dispatch" %% "dispatch-core" % "0.11.1"
 )
 
 resolvers ++= List(
